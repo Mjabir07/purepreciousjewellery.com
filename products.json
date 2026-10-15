@@ -1,0 +1,12 @@
+{
+  "rings": [
+    { "name": "Emerald-Cut Five-Stone Ring", "detail": "Emerald & baguette-cut stones", "image": "assets/img/products/rings/emerald-cut-five-stone-ring" }
+  ],
+  "necklaces-pendants": [],
+  "bracelets": [],
+  "earrings": [
+    { "name": "Heart Pavé Huggie Earrings", "detail": "Rose gold", "image": "assets/img/products/earrings/heart-pave-huggie-earrings-rose-gold" },
+    { "name": "Heart Pavé Huggie Earrings", "detail": "Yellow gold", "image": "assets/img/products/earrings/heart-pave-huggie-earrings-yellow-gold" },
+    { "name": "Heart Pavé Huggie Earrings", "detail": "White gold", "image": "assets/img/products/earrings/heart-pave-huggie-earrings-white-gold" }
+  ]
+}

@@ -374,3 +374,13 @@ ul { margin: 0; padding: 0; list-style: none; }
 .brand-name { color: var(--text); }
 .btn--ghost { border-color: var(--gold); }
 .wa-float { box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25); }
+
+/* Product photos */
+.product-media picture, .tile picture { position: absolute; inset: 0; }
+.product-media picture img { position: absolute; inset: 0; }
+.tile picture img.tile-photo { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s var(--ease); }
+.tile:hover picture img.tile-photo { transform: scale(1.06); }
+.lightbox-media { position: relative; }
+.lightbox-media picture img { width: 100%; height: 100%; object-fit: cover; }
+.product--soon { display: block; }
+.product--soon .product-name { color: var(--text-muted); }

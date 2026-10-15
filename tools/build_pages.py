@@ -9,11 +9,26 @@ ROOT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(os.pat
 with open(os.path.join(ROOT, "products.json"), encoding="utf-8") as f:
     PRODUCTS = json.load(f)
 
-def picture(base, alt, cls="", eager=False):
+def picture(base, alt, cls="", eager=False, focus=None):
     load = "eager" if eager else "lazy"
     c = f' class="{cls}"' if cls else ""
+    st = f' style="object-position:{focus}"' if focus else ""
     return (f'<picture><source srcset="{base}.webp" type="image/webp">'
-            f'<img{c} src="{base}.jpg" alt="{html.escape(alt)}" width="1200" height="1200" loading="{load}" decoding="async"></picture>')
+            f'<img{c} src="{base}.jpg" alt="{html.escape(alt)}" width="1200" height="1200" loading="{load}" decoding="async"{st}></picture>')
+
+def images(item):
+    return item.get("images") or [item["image"]]
+
+def tile_media(k, ic):
+    items = PRODUCTS.get(k) or []
+    vid = next((it for it in items if it.get("video")), None)
+    if vid:
+        v = vid["video"]
+        return (f'<video class="tile-photo" src="{v}.mp4" poster="{v}-poster.jpg" autoplay muted loop playsinline '
+                f'preload="metadata" aria-label="{html.escape(vid["name"])}"></video>')
+    if items:
+        return picture(images(items[0])[0], items[0]["name"], "tile-photo", focus=items[0].get("focus"))
+    return f'<div class="tile-art">{ICON[ic]}</div>'
 
 PHONE1, PHONE1_RAW = "+971 50 134 8382", "+971501348382"
 PHONE2, PHONE2_RAW = "+971 4 285 9661", "+97142859661"
@@ -172,7 +187,7 @@ def write(name, content):
 
 # ---------------- HOME ----------------
 tiles = "\n".join(f'''      <a class="tile reveal" style="--d:{i*.08:.2f}s" href="collections.html#{k}">
-        {picture(PRODUCTS[k][0]["image"], PRODUCTS[k][0]["name"], "tile-photo") if PRODUCTS.get(k) else f'<div class="tile-art">{ICON[ic]}</div>'}
+        {tile_media(k, ic)}
         <div class="tile-body"><h3>{n}</h3><p>{sub}</p></div>
       </a>''' for i, (k, n, ic, sub) in enumerate(CATS))
 
@@ -263,8 +278,11 @@ def product(k, n, ic, item):
     name = html.escape(item["name"])
     detail = html.escape(item.get("detail", ""))
     label = f"{item['name']} — {item['detail']}" if item.get("detail") else item["name"]
-    return f'''        <button class="product reveal" type="button" data-name="{html.escape(label)}" data-cat="{plain}">
-          <div class="product-media">{picture(item["image"], label)}</div>
+    imgs = images(item)
+    gallery = html.escape(json.dumps(imgs))
+    more = f'<span class="product-count">{len(imgs)} photos</span>' if len(imgs) > 1 else ""
+    return f'''        <button class="product reveal" type="button" data-name="{html.escape(label)}" data-cat="{plain}" data-gallery="{gallery}">
+          <div class="product-media">{picture(imgs[0], label, focus=item.get("focus"))}{more}</div>
           <h3 class="product-name">{name}</h3>
           <p class="product-meta">{detail or "Enquire for details"}</p>
         </button>'''
@@ -305,7 +323,7 @@ coll += f'''
 <div class="lightbox" role="dialog" aria-modal="true" aria-label="Piece details">
   <button class="lightbox-close" type="button" aria-label="Close">&times;</button>
   <div class="lightbox-card">
-    <div class="lightbox-media"></div>
+    <div class="lightbox-gallery"><div class="lightbox-media"></div><div class="lb-thumbs"></div></div>
     <div class="lightbox-body">
       <span class="eyebrow lb-cat"></span>
       <h3></h3>

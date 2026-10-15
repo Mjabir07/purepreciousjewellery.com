@@ -22,7 +22,13 @@ Use lowercase names with dashes, e.g. `gold-solitaire-ring.jpg`. Each photo need
 (around 1200×1200 px). Then add an entry to `products.json` under its category:
 
 ```json
-{ "name": "Gold Solitaire Ring", "detail": "18K yellow gold", "image": "assets/img/products/rings/gold-solitaire-ring" }
+{ "name": "Gold Solitaire Ring", "detail": "18K yellow gold",
+  "images": ["assets/img/products/rings/gold-solitaire-ring", "assets/img/products/rings/gold-solitaire-ring-worn"],
+  "focus": "50% 70%" }
 ```
 
-(`image` has no extension.) The first product in each category is also shown on the home page tile.
+- `images`: paths without extension; the first is the card photo, the rest appear as a gallery when the piece is opened.
+- `focus` (optional): which part of a tall photo to keep in the square card (`"50% 70%"` = centre, lower down).
+- `video` (optional): path without extension to `assets/video/<name>.mp4` plus `<name>-poster.jpg`; plays on the home page category tile.
+
+The first product in each category is shown on the home page tile.

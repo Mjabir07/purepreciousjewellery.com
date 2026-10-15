@@ -58,11 +58,25 @@ if (lightbox) {
   const cat = lightbox.querySelector(".lb-cat");
   const wa = lightbox.querySelector(".lb-wa");
   let lastFocus = null;
+  const thumbs = lightbox.querySelector(".lb-thumbs");
+  const pic = (base, alt) =>
+    `<picture><source srcset="${base}.webp" type="image/webp"><img src="${base}.jpg" alt="${alt.replace(/"/g, "&quot;")}"></picture>`;
+  function showGallery(list, alt) {
+    const show = (i) => {
+      media.innerHTML = pic(list[i], alt);
+      thumbs.querySelectorAll("button").forEach((b, j) => b.setAttribute("aria-current", String(i === j)));
+    };
+    thumbs.innerHTML = list.length > 1
+      ? list.map((b, i) => `<button type="button" aria-label="Photo ${i + 1}">${pic(b, "")}</button>`).join("")
+      : "";
+    thumbs.querySelectorAll("button").forEach((b, i) => b.addEventListener("click", () => show(i)));
+    show(0);
+  }
   const close = () => { lightbox.classList.remove("is-open"); lastFocus?.focus(); document.body.style.overflow = ""; };
   document.querySelectorAll(".product").forEach((p) =>
     p.addEventListener("click", () => {
       lastFocus = p;
-      media.innerHTML = p.querySelector(".product-media").innerHTML;
+      showGallery(JSON.parse(p.dataset.gallery || "[]"), p.dataset.name);
       title.textContent = p.dataset.name;
       cat.textContent = p.dataset.cat;
       wa.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Hello, I'm interested in "${p.dataset.name}" (${p.dataset.cat}). Could you share more details?`)}`;

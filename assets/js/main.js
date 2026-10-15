@@ -118,3 +118,8 @@ if (form) {
 }
 
 document.querySelectorAll("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
+
+// Reduced motion: keep tile videos still (they show their first frame / poster)
+if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  document.querySelectorAll("video[autoplay]").forEach((v) => { v.removeAttribute("autoplay"); v.pause(); });
+}

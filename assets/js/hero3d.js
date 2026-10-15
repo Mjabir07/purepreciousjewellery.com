@@ -22,7 +22,7 @@ try {
 if (renderer) {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isSmall ? 1.5 : 2));
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.15;
+  renderer.toneMappingExposure = 1.0;
 
   const scene = new THREE.Scene();
   const pmrem = new THREE.PMREMGenerator(renderer);
@@ -36,15 +36,15 @@ if (renderer) {
   key.position.set(4, 4, 6);
   const rim = new THREE.PointLight(0xffb347, 40, 30, 2);
   rim.position.set(-5, -2, 3);
-  const under = new THREE.PointLight(0xffc766, 55, 30, 2);
-  under.position.set(0, -5, 4);
-  scene.add(key, rim, under, new THREE.AmbientLight(0xffffff, 0.15));
+  const under = new THREE.PointLight(0xffd488, 160, 30, 2);
+  under.position.set(0, -4, 5);
+  scene.add(key, rim, under, new THREE.HemisphereLight(0xfff3d6, 0xb8892b, 0.9));
 
   const goldMat = new THREE.MeshStandardMaterial({
-    color: 0xd9ac3c, metalness: 1, roughness: 0.3, envMapIntensity: 1.9, flatShading: true,
+    color: 0xe0b24a, metalness: 1, roughness: 0.28, envMapIntensity: 1.6, flatShading: true,
   });
   const goldSmooth = new THREE.MeshStandardMaterial({
-    color: 0xd9ac3c, metalness: 1, roughness: 0.2, envMapIntensity: 1.6,
+    color: 0xe0b24a, metalness: 1, roughness: 0.2, envMapIntensity: 1.5,
   });
 
   // The whole scene sits in a group so it can be offset right on wide screens
@@ -66,7 +66,7 @@ if (renderer) {
   const edgeGeo = new THREE.EdgesGeometry(new THREE.OctahedronGeometry(1.95, 0));
   const outline = new THREE.LineSegments(
     edgeGeo,
-    new THREE.LineBasicMaterial({ color: 0xf3d98b, transparent: true, opacity: 0.55 })
+    new THREE.LineBasicMaterial({ color: 0xa67c1e, transparent: true, opacity: 0.7 })
   );
   outline.scale.set(1, 1.1, 1);
   stage.add(outline);
@@ -116,7 +116,7 @@ if (renderer) {
   sparkGeo.setAttribute("aPhase", new THREE.BufferAttribute(phase, 1));
   sparkGeo.setAttribute("aSize", new THREE.BufferAttribute(size, 1));
   const sparkMat = new THREE.ShaderMaterial({
-    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+    transparent: true, depthWrite: false, blending: THREE.NormalBlending,
     uniforms: { uTime: { value: 0 }, uScale: { value: renderer.getPixelRatio() * 90 } },
     vertexShader: `
       attribute float aPhase; attribute float aSize; uniform float uTime; uniform float uScale; varying float vA;
@@ -137,7 +137,7 @@ if (renderer) {
         float glow = smoothstep(0.5, 0.0, d);
         float a = (glow * 0.55 + star * 0.9) * vA;
         if (a < 0.01) discard;
-        gl_FragColor = vec4(1.0, 0.86, 0.5, a);
+        gl_FragColor = vec4(0.80, 0.58, 0.12, min(1.0, a * 1.4));
       }`,
   });
   const sparkles = new THREE.Points(sparkGeo, sparkMat);

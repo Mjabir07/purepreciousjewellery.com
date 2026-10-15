@@ -156,7 +156,7 @@ def visit_block():
 <section class="section section--alt" id="visit">
   <div class="container split">
     <div class="reveal">
-      <span class="eyebrow">Visit the showroom</span>
+      <span class="eyebrow">Visit our workshop</span>
       <h2 class="section-title">Find us in the <span class="gold-text">Gold Souq</span></h2>
       <div class="info-list">
         <div class="info-item"><span class="ico">{SVG["pin"]}</span><div><h4>Address</h4><p>{"<br>".join(ADDR)}</p></div></div>
@@ -274,7 +274,7 @@ home += f'''
       <li><span><strong>18K Diamond &amp; Platinum</strong> &mdash; our speciality.</span></li>
       <li><span><strong>Rings, necklaces &amp; pendants, bracelets, earrings.</strong></span></li>
       <li><span><strong>Bespoke work</strong> from our own factory.</span></li>
-      <li><span><strong>Gold Souq showroom</strong> &mdash; visit us in Deira.</span></li>
+      <li><span><strong>Gold Souq workshop</strong> &mdash; visit us in Deira.</span></li>
     </ul>
   </div>
 </section>
@@ -330,7 +330,7 @@ coll += f'''
 <div id="catalogue">
 {blocks}
 </div>
-<div class="container"><p class="notice">A selection of our pieces &mdash; many more in the showroom. Prices on request; visit us or message us on WhatsApp.</p></div>
+<div class="container"><p class="notice">A selection of our pieces &mdash; many more at our workshop. Prices on request; visit us or message us on WhatsApp.</p></div>
 ''' + cta_block("Can&rsquo;t find the perfect piece?", "Our factory can make it for you. Tell us what you have in mind.", "Design your own", "custom-design.html") + f'''
 <div class="lightbox" role="dialog" aria-modal="true" aria-label="Piece details">
   <button class="lightbox-close" type="button" aria-label="Close">&times;</button>
@@ -452,7 +452,7 @@ contact += f'''
   <div class="container">
     <span class="eyebrow">Contact</span>
     <h1>Visit <span class="gold-text">us</span></h1>
-    <p>Come to the showroom, call, or message us on WhatsApp.</p>
+    <p>Visit our workshop, call, or message us on WhatsApp.</p>
   </div>
 </section>
 ''' + visit_block() + FOOT + tail()

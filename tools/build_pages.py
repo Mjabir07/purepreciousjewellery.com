@@ -63,6 +63,10 @@ CATS = [
 
 NAV = [("index.html", "Home"), ("collections.html", "Collections"), ("custom-design.html", "Custom Design"), ("about.html", "About"), ("contact.html", "Contact")]
 
+# Demo mode keeps search engines away until launch. Set to False when going live
+# on purepreciousjewellery.com, re-run this script, and delete robots.txt.
+DEMO = True
+
 def head(title, desc, page):
     return f'''<!doctype html>
 <html lang="en" class="no-js">
@@ -71,7 +75,7 @@ def head(title, desc, page):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-<meta name="theme-color" content="#fbf7ef">
+<meta name="theme-color" content="#fbf7ef">{'<meta name="robots" content="noindex, nofollow">' if DEMO else ''}
 <link rel="icon" type="image/svg+xml" href="assets/img/ppj-emblem-gold.svg">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">

@@ -202,9 +202,17 @@ home = head("Pure Precious Jewellery L.L.C — 18K Diamond & Platinum Jewellery,
             "Pure Precious Jewellery L.L.C in the Gold Souq, Deira, Dubai. Specialists in 18K diamond and platinum jewellery with custom designs made in our own factory.", "index.html")
 home += f'''
 <section class="hero" aria-label="Welcome">
-  <canvas id="hero-canvas" aria-hidden="true"></canvas>
-  <img class="hero-fallback" src="assets/img/ppj-emblem-gold.svg" alt="" width="165" height="165">
-  <div class="container">
+  <canvas id="hero-sparkles" aria-hidden="true"></canvas>
+  <div class="container hero-grid">
+    <figure class="hero-media">
+      <div class="arch">
+        <video poster="assets/video/hero-necklace-poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="Model wearing the Pure Precious diamond bib necklace">
+          <source src="assets/video/hero-necklace.webm" type="video/webm">
+          <source src="assets/video/hero-necklace.mp4" type="video/mp4">
+        </video>
+      </div>
+      <a class="hero-tag" href="collections.html#necklaces-pendants"><span>Featured</span>Diamond Bib Necklace</a>
+    </figure>
     <div class="hero-content">
       <span class="eyebrow">Gold Souq &middot; Deira &middot; Dubai</span>
       <h1><span class="gold-text">Pure Precious</span><span>Jewellery</span></h1>
@@ -270,7 +278,7 @@ home += f'''
     </ul>
   </div>
 </section>
-''' + visit_block() + FOOT + tail('<script type="importmap">{"imports":{"three":"./assets/vendor/three.module.js","three/addons/":"./assets/vendor/jsm/"}}</script>\n<script type="module" src="assets/js/hero3d.js"></script>\n')
+''' + visit_block() + FOOT + tail('<script src="assets/js/sparkles.js" defer></script>\n')
 write("index.html", home)
 
 # ---------------- COLLECTIONS ----------------

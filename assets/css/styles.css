@@ -398,3 +398,43 @@ ul { margin: 0; padding: 0; list-style: none; }
 .lightbox-media { aspect-ratio: 1; overflow: hidden; }
 .lightbox-media picture { position: absolute; inset: 0; }
 @media (max-width: 760px) { .lightbox-media { aspect-ratio: 4 / 3; } }
+
+/* ---------- Video hero (arch) ---------- */
+#hero-sparkles { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+.hero-grid { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: clamp(32px, 6vw, 96px); align-items: center; padding-top: var(--header-h); }
+.hero-grid .hero-content { order: -1; padding: 40px 0 56px; max-width: 600px; pointer-events: auto; }
+.hero-media {
+  position: relative; margin: 0; justify-self: center;
+  width: min(430px, 100%, calc((100svh - var(--header-h) - 110px) * 0.668));
+  aspect-ratio: 568 / 850;
+}
+.hero-media::before, .hero-media::after { content: ""; position: absolute; pointer-events: none; border-radius: 999px 999px 12px 12px; }
+.hero-media::before { inset: -14px; border: 1px solid var(--line-strong); }
+.hero-media::after { inset: -28px; border: 1px solid var(--line); }
+.hero-media .arch {
+  position: absolute; inset: 0; overflow: hidden; border-radius: 999px 999px 6px 6px;
+  background: #e9dcc3 url("../video/hero-necklace-poster.jpg") center / cover;
+  box-shadow: 0 50px 90px -45px rgba(107, 76, 12, 0.6);
+}
+.hero-media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero-tag {
+  position: absolute; left: -36px; bottom: 56px; z-index: 2;
+  display: flex; flex-direction: column; gap: 2px; padding: 14px 20px;
+  background: rgba(255, 253, 248, 0.94); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--line-strong); border-radius: var(--radius);
+  font-family: var(--font-display); font-size: 1.15rem; color: var(--text);
+  box-shadow: 0 18px 40px -20px rgba(107, 76, 12, 0.5); transition: transform 0.4s var(--ease);
+}
+.hero-tag span { font-family: var(--font-body); font-size: 0.6rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold-light); font-weight: 600; }
+.hero-tag:hover { transform: translateY(-3px); }
+
+@media (max-width: 860px) {
+  .hero { min-height: auto; align-items: flex-start; }
+  .hero-grid { grid-template-columns: 1fr; gap: 8px; padding-top: calc(var(--header-h) + 34px); }
+  .hero-grid .hero-content { order: 0; padding: 36px 0 56px; }
+  .hero-media { width: min(330px, 74vw); }
+  .hero-tag { left: -12px; bottom: 28px; padding: 10px 14px; font-size: 1rem; }
+  .scroll-cue { display: none; }
+}
+.hero-grid h1 { font-size: clamp(2.9rem, 5.6vw, 5.4rem); }
+.hero-grid h1 span { white-space: nowrap; }

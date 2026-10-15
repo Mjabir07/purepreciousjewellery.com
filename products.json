@@ -1,31 +1,79 @@
 {
   "rings": [
-    { "name": "Emerald-Cut Five-Stone Ring", "detail": "Emerald & baguette-cut stones",
-      "images": ["assets/img/products/rings/emerald-cut-five-stone-ring"] }
+    {
+      "name": "Emerald-Cut Five-Stone Ring",
+      "detail": "Emerald & baguette-cut stones",
+      "images": [
+        "assets/img/products/rings/emerald-cut-five-stone-ring"
+      ]
+    }
   ],
   "necklaces-pendants": [
-    { "name": "Diamond Bib Necklace", "detail": "Pear & round-cut stones",
-      "images": ["assets/img/products/necklaces-pendants/diamond-bib-necklace",
-                 "assets/img/products/necklaces-pendants/diamond-bib-necklace-worn"],
-      "video": "assets/video/diamond-bib-necklace" },
-    { "name": "Tennis Necklace with Pear Pendant", "detail": "White gold",
-      "images": ["assets/img/products/necklaces-pendants/tennis-necklace-pear-pendant"], "focus": "50% 75%" },
-    { "name": "Tennis Necklace with Pink Pear Pendant", "detail": "White gold, pink stone",
-      "images": ["assets/img/products/necklaces-pendants/tennis-necklace-pink-pear-pendant"], "focus": "50% 85%" },
-    { "name": "Gold Collar Necklace", "detail": "Gold",
-      "images": ["assets/img/products/necklaces-pendants/gold-collar-necklace"], "focus": "50% 60%" }
+    {
+      "name": "Diamond Bib Necklace",
+      "detail": "Pear & round-cut stones",
+      "images": [
+        "assets/img/products/necklaces-pendants/diamond-bib-necklace",
+        "assets/img/products/necklaces-pendants/diamond-bib-necklace-worn"
+      ]
+    },
+    {
+      "name": "Tennis Necklace with Pear Pendant",
+      "detail": "White gold",
+      "images": [
+        "assets/img/products/necklaces-pendants/tennis-necklace-pear-pendant"
+      ],
+      "focus": "50% 75%"
+    },
+    {
+      "name": "Tennis Necklace with Pink Pear Pendant",
+      "detail": "White gold, pink stone",
+      "images": [
+        "assets/img/products/necklaces-pendants/tennis-necklace-pink-pear-pendant"
+      ],
+      "focus": "50% 85%"
+    },
+    {
+      "name": "Gold Collar Necklace",
+      "detail": "Gold",
+      "images": [
+        "assets/img/products/necklaces-pendants/gold-collar-necklace"
+      ],
+      "focus": "50% 60%"
+    }
   ],
   "bracelets": [
-    { "name": "Cuban Link Bracelet", "detail": "White gold",
-      "images": ["assets/img/products/bracelets/cuban-link-bracelet"], "focus": "50% 65%" }
+    {
+      "name": "Cuban Link Bracelet",
+      "detail": "White gold",
+      "images": [
+        "assets/img/products/bracelets/cuban-link-bracelet"
+      ],
+      "focus": "50% 65%"
+    }
   ],
   "earrings": [
-    { "name": "Heart Pavé Huggie Earrings", "detail": "Rose gold",
-      "images": ["assets/img/products/earrings/heart-pave-huggie-earrings-rose-gold"] },
-    { "name": "Heart Pavé Huggie Earrings", "detail": "Yellow gold",
-      "images": ["assets/img/products/earrings/heart-pave-huggie-earrings-yellow-gold"] },
-    { "name": "Heart Pavé Huggie Earrings", "detail": "White gold",
-      "images": ["assets/img/products/earrings/heart-pave-huggie-earrings-white-gold",
-                 "assets/img/products/earrings/heart-pave-huggie-earrings-white-gold-worn"] }
+    {
+      "name": "Heart Pavé Huggie Earrings",
+      "detail": "Rose gold",
+      "images": [
+        "assets/img/products/earrings/heart-pave-huggie-earrings-rose-gold"
+      ]
+    },
+    {
+      "name": "Heart Pavé Huggie Earrings",
+      "detail": "Yellow gold",
+      "images": [
+        "assets/img/products/earrings/heart-pave-huggie-earrings-yellow-gold"
+      ]
+    },
+    {
+      "name": "Heart Pavé Huggie Earrings",
+      "detail": "White gold",
+      "images": [
+        "assets/img/products/earrings/heart-pave-huggie-earrings-white-gold",
+        "assets/img/products/earrings/heart-pave-huggie-earrings-white-gold-worn"
+      ]
+    }
   ]
 }

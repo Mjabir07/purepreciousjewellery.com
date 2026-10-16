@@ -14,8 +14,11 @@ The client has a **workshop / factory**, not a showroom — never call it a shop
 - When the user uploads raw photos (e.g. `WhatsApp Image ...jpeg`): check what each shows, move it to the right
   category with a descriptive dashed name, make jpg + webp, delete the original, add it to `products.json`, rebuild.
 
-## Deploying
-- Pushing to `main` deploys automatically: Cloudflare Pages (live) and GitHub Pages (demo link).
+## Deploying — work on `demo`, release to `main`
+- **All edits go to the `demo` branch.** GitHub Pages serves `demo` as the client preview link.
+- **`main` is the live site** (Cloudflare Pages). Only update it when the user says to release/deploy live:
+  `git checkout main && git merge --ff-only demo && git push origin main`, then return to `demo`.
+  Batching edits this way keeps Cloudflare deploys (500/month free) low.
 - `DEMO = True` in `tools/build_pages.py` plus `robots.txt` keep search engines out. At launch: set
   `DEMO = False`, rebuild, delete `robots.txt`, add a sitemap.
 - Before pushing, check pages in Playwright at desktop and ~390px width (no horizontal overflow, no console errors).

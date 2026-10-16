@@ -34,6 +34,19 @@ PHONE1, PHONE1_RAW = "+971 50 134 8382", "+971501348382"
 PHONE2, PHONE2_RAW = "+971 4 285 9661", "+97142859661"
 EMAIL = "purepreciousjew@gmail.com"
 WA = "https://wa.me/971501348382"
+from urllib.parse import quote
+def wa(text):
+    return f"{WA}?text={quote(text)}"
+GREETING = "Hello Pure Precious Jewellery, I found you on your website and I'm interested in your jewellery."
+WA_HELLO = wa(GREETING)
+WA_TOPICS = [
+    ("Rings", "Hello Pure Precious Jewellery, I'd like to see your ring designs."),
+    ("Necklaces &amp; Pendants", "Hello Pure Precious Jewellery, I'd like to see your necklaces and pendants."),
+    ("Bracelets", "Hello Pure Precious Jewellery, I'd like to see your bracelet designs."),
+    ("Earrings", "Hello Pure Precious Jewellery, I'd like to see your earring designs."),
+    ("Custom design", "Hello Pure Precious Jewellery, I'd like to discuss a custom jewellery design."),
+    ("Visit the workshop", "Hello Pure Precious Jewellery, I'd like to visit your workshop in the Gold Souq."),
+]
 IG = "https://www.instagram.com/pure_precious_jewellery"
 ADDR = ["Office F09, Hana &amp; Maryam Obaid", "Al Helo, Gold Souq, Deira", "Dubai, UAE"]
 MAPQ = "https://www.google.com/maps/search/?api=1&query=Pure+Precious+Jewellery+Gold+Souq+Deira+Dubai"
@@ -100,7 +113,7 @@ def head(title, desc, page):
     <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav"><span></span></button>
     <nav class="nav" id="nav" aria-label="Main">
 ''' + "\n".join(f'      <a href="{h}"' + (' aria-current="page"' if h == page else "") + f'>{t}</a>' for h, t in NAV) + f'''
-      <a class="btn btn--gold" href="{WA}" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="btn btn--gold" href="{WA_HELLO}" target="_blank" rel="noopener">WhatsApp</a>
     </nav>
   </div>
 </header>
@@ -116,7 +129,7 @@ FOOT = f'''</main>
         <p>Specialist in all kinds of 18K diamond &amp; platinum jewellery. Custom pieces crafted in our own factory.</p>
         <div class="socials">
           <a href="{IG}" target="_blank" rel="noopener" aria-label="Instagram">{SVG["ig"]}</a>
-          <a href="{WA}" target="_blank" rel="noopener" aria-label="WhatsApp">{SVG["wa"]}</a>
+          <a href="{WA_HELLO}" target="_blank" rel="noopener" aria-label="WhatsApp">{SVG["wa"]}</a>
           <a href="mailto:{EMAIL}" aria-label="Email">{SVG["mail"]}</a>
         </div>
       </div>
@@ -145,7 +158,23 @@ FOOT = f'''</main>
     <div class="footer-bottom"><span>&copy; <span data-year>2026</span> Pure Precious Jewellery L.L.C. All rights reserved.</span><span>Gold Souq, Deira, Dubai</span></div>
   </div>
 </footer>
-<a class="wa-float" href="{WA}" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">{SVG["wa"]}</a>
+<div class="wa-widget">
+  <div class="wa-panel" id="wa-panel" role="dialog" aria-modal="false" aria-labelledby="wa-title" hidden>
+    <div class="wa-head">
+      <img src="assets/img/ppj-emblem-light.svg" alt="" width="40" height="40">
+      <div><p class="wa-name" id="wa-title">Pure Precious Jewellery</p><p class="wa-status">We reply during working hours<br><span>10:30 am – 1:30 pm</span> &middot; <span>4:30 pm – 9:30 pm</span></p></div>
+      <button class="wa-close" type="button" aria-label="Close chat">&times;</button>
+    </div>
+    <div class="wa-body">
+      <p class="wa-bubble">Hello! How can we help you today? Choose a topic or start a chat.</p>
+      <div class="wa-topics">
+''' + "\n".join(f'        <a href="{wa(m)}" target="_blank" rel="noopener">{t}</a>' for t, m in WA_TOPICS) + f'''
+      </div>
+    </div>
+    <a class="wa-start" href="{WA_HELLO}" target="_blank" rel="noopener">{SVG["wa"]} Start chat on WhatsApp</a>
+  </div>
+  <button class="wa-float" type="button" aria-label="Chat on WhatsApp" aria-expanded="false" aria-controls="wa-panel">{SVG["wa"]}</button>
+</div>
 '''
 
 def tail(extra=""):
@@ -164,7 +193,7 @@ def visit_block():
         <div class="info-item"><span class="ico">{SVG["phone"]}</span><div><h4>Call</h4><p><a href="tel:{PHONE1_RAW}">{PHONE1}</a><br><a href="tel:{PHONE2_RAW}">{PHONE2}</a></p></div></div>
         <div class="info-item"><span class="ico">{SVG["mail"]}</span><div><h4>Email</h4><p><a href="mailto:{EMAIL}">{EMAIL}</a></p></div></div>
       </div>
-      <div class="hero-actions"><a class="btn btn--gold" href="{MAPQ}" target="_blank" rel="noopener">Get directions</a><a class="btn btn--ghost" href="{WA}" target="_blank" rel="noopener">{SVG["wa"]} WhatsApp</a></div>
+      <div class="hero-actions"><a class="btn btn--gold" href="{MAPQ}" target="_blank" rel="noopener">Get directions</a><a class="btn btn--ghost" href="{WA_HELLO}" target="_blank" rel="noopener">{SVG["wa"]} WhatsApp</a></div>
     </div>
     <div class="map-box reveal" style="--d:.15s"><iframe title="Pure Precious Jewellery on Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="{MAPEMBED}"></iframe></div>
   </div>
@@ -179,7 +208,7 @@ def cta_block(title, text, btn_text, btn_href):
       <span class="eyebrow">Made for you</span>
       <h2 style="margin-top:14px">{title}</h2>
       <p>{text}</p>
-      <div class="hero-actions"><a class="btn btn--gold" href="{btn_href}">{btn_text}</a><a class="btn btn--ghost" href="{WA}" target="_blank" rel="noopener">{SVG["wa"]} Chat on WhatsApp</a></div>
+      <div class="hero-actions"><a class="btn btn--gold" href="{btn_href}">{btn_text}</a><a class="btn btn--ghost" href="{WA_HELLO}" target="_blank" rel="noopener">{SVG["wa"]} Chat on WhatsApp</a></div>
     </div>
   </div>
 </section>
@@ -340,7 +369,7 @@ coll += f'''
       <span class="eyebrow lb-cat"></span>
       <h3></h3>
       <p>18K gold, diamond &amp; platinum options available. Message us for price, sizes and availability &mdash; or ask for a custom version.</p>
-      <div class="hero-actions"><a class="btn btn--gold lb-wa" href="{WA}" target="_blank" rel="noopener">{SVG["wa"]} Enquire on WhatsApp</a></div>
+      <div class="hero-actions"><a class="btn btn--gold lb-wa" href="{WA_HELLO}" target="_blank" rel="noopener">{SVG["wa"]} Enquire on WhatsApp</a></div>
     </div>
   </div>
 </div>

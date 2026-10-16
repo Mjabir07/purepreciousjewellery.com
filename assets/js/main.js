@@ -123,3 +123,18 @@ document.querySelectorAll("[data-year]").forEach((el) => (el.textContent = new D
 if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   document.querySelectorAll("video[autoplay]").forEach((v) => { v.removeAttribute("autoplay"); v.pause(); });
 }
+
+// WhatsApp chat popup
+const waBtn = document.querySelector(".wa-float[aria-controls]");
+const waPanel = document.getElementById("wa-panel");
+if (waBtn && waPanel) {
+  const setOpen = (open) => {
+    waPanel.hidden = !open;
+    waBtn.setAttribute("aria-expanded", String(open));
+    if (open) waPanel.querySelector(".wa-topics a")?.focus();
+  };
+  waBtn.addEventListener("click", () => setOpen(waPanel.hidden));
+  waPanel.querySelector(".wa-close").addEventListener("click", () => { setOpen(false); waBtn.focus(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !waPanel.hidden) { setOpen(false); waBtn.focus(); } });
+  document.addEventListener("click", (e) => { if (!waPanel.hidden && !e.target.closest(".wa-widget")) setOpen(false); });
+}

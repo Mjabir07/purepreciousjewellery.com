@@ -438,3 +438,31 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .hero-grid h1 { font-size: clamp(2.9rem, 5.6vw, 5.4rem); }
 .hero-grid h1 span { white-space: nowrap; }
+
+/* ---------- WhatsApp chat popup ---------- */
+.wa-widget { position: fixed; right: 18px; bottom: 18px; z-index: 120; display: flex; flex-direction: column; align-items: flex-end; gap: 14px; }
+.wa-widget .wa-float { position: static; border: 0; cursor: pointer; }
+.wa-float[aria-expanded="true"] { background: var(--deep); }
+.wa-panel {
+  width: min(340px, calc(100vw - 36px)); background: #fffdf8; border-radius: 14px; overflow: hidden;
+  box-shadow: 0 24px 60px -18px rgba(16, 52, 43, 0.45), 0 0 0 1px var(--line);
+  transform-origin: bottom right; animation: wa-in 0.3s var(--ease);
+}
+.wa-panel[hidden] { display: none; }
+@keyframes wa-in { from { opacity: 0; transform: translateY(12px) scale(0.96); } }
+.wa-head { display: flex; align-items: center; gap: 12px; padding: 16px 16px 14px; background: var(--deep); color: #f6efe0; }
+.wa-head img { flex: none; width: 40px; height: 40px; }
+.wa-head > div { flex: 1; min-width: 0; }
+.wa-name { font-family: var(--font-display); font-size: 1.2rem; line-height: 1.2; color: #fff; }
+.wa-status { font-size: 0.7rem; line-height: 1.45; color: #b9c6bf; margin-top: 2px; }
+.wa-close { flex: none; width: 44px; height: 44px; margin: -8px -8px -8px 0; border: 0; background: none; color: #f6efe0; font-size: 1.6rem; cursor: pointer; border-radius: 50%; }
+.wa-close:hover { background: rgba(255, 255, 255, 0.1); }
+.wa-body { padding: 18px 16px 6px; background: linear-gradient(180deg, #f6efe0, #fffdf8); }
+.wa-bubble { position: relative; background: #fff; padding: 12px 14px; border-radius: 4px 12px 12px 12px; font-size: 0.9rem; color: var(--text); box-shadow: 0 2px 8px -4px rgba(107, 76, 12, 0.3); }
+.wa-topics { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.wa-topics a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border: 1px solid var(--line-strong); border-radius: 999px; font-size: 0.8rem; color: var(--gold-light); background: #fff; transition: background 0.25s, color 0.25s, border-color 0.25s; }
+.wa-topics a:hover { background: var(--gold-gradient); color: #2a1c05; border-color: transparent; }
+.wa-start { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 14px 16px 16px; min-height: 48px; border-radius: 999px; background: #25d366; color: #fff; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.04em; transition: filter 0.25s; }
+.wa-start:hover { filter: brightness(0.95); }
+.wa-start svg { width: 20px; height: 20px; }
+.wa-status span { white-space: nowrap; }

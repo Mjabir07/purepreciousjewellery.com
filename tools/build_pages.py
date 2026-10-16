@@ -35,7 +35,7 @@ PHONE2, PHONE2_RAW = "+971 4 285 9661", "+97142859661"
 EMAIL = "info@purepreciousjewellery.com"
 # Web3Forms access key (public by design). Paste the key emailed by web3forms.com here, then rebuild.
 # While empty, forms fall back to opening the visitor's email app.
-WEB3FORMS_KEY = ""
+WEB3FORMS_KEY = "7416e740-e706-43f7-8aa3-5e0e9335859a"
 
 def form_hidden(subject):
     return (f'<input type="hidden" name="access_key" value="{WEB3FORMS_KEY}">'

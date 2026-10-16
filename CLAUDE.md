@@ -27,8 +27,9 @@ The client has a **workshop / factory**, not a showroom — never call it a shop
   Batching edits this way keeps Cloudflare deploys (500/month free) low.
 - Cloudflare runs `npx wrangler deploy` with `wrangler.jsonc` (assets = repo root). Anything that is not part of
   the public site must be listed in `.assetsignore`.
-- `DEMO = True` in `tools/build_pages.py` plus `robots.txt` keep search engines out. At launch: set
-  `DEMO = False`, rebuild, delete `robots.txt`, add a sitemap.
+- Launched (Oct 2026): `DEMO = False` in `tools/build_pages.py`. The generator writes `robots.txt` and
+  `sitemap.xml` and a canonical URL on every page pointing to https://purepreciousjewellery.com (so the GitHub
+  Pages demo copy is not treated as a separate site). Add new pages to `PATHS` so they get into the sitemap.
 - Before pushing, check pages in Playwright at desktop and ~390px width (no horizontal overflow, no console errors).
   Playwright's Chromium can't play H.264, so keep the WebM source first in `<video>`.
 

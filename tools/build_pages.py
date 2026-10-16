@@ -4,7 +4,7 @@ Usage (from the repo root):  python3 tools/build_pages.py
 Products live in products.json: add an entry with name, detail and image
 (path without extension; provide both .jpg and .webp), then re-run this script.
 """
-import html, json, os, sys
+import datetime, html, json, os, sys
 ROOT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 with open(os.path.join(ROOT, "products.json"), encoding="utf-8") as f:
     PRODUCTS = json.load(f)
@@ -93,9 +93,12 @@ CATS = [
 
 NAV = [("index.html", "Home"), ("collections.html", "Collections"), ("custom-design.html", "Custom Design"), ("about.html", "About"), ("contact.html", "Contact")]
 
-# Demo mode keeps search engines away until launch. Set to False when going live
-# on purepreciousjewellery.com, re-run this script, and delete robots.txt.
-DEMO = True
+# Demo mode adds noindex to every page (keeps search engines away). Launched: False.
+DEMO = False
+SITE = "https://purepreciousjewellery.com"
+# Clean URLs as served by Cloudflare (it redirects /page.html to /page)
+PATHS = {"index.html": "/", "collections.html": "/collections", "custom-design.html": "/custom-design",
+         "about.html": "/about", "contact.html": "/contact"}
 
 def head(title, desc, page):
     return f'''<!doctype html>
@@ -110,13 +113,17 @@ def head(title, desc, page):
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:type" content="website">
-<meta property="og:image" content="assets/img/og-image.png">
+<meta property="og:url" content="{SITE}{PATHS[page]}">
+<meta property="og:image" content="{SITE}/assets/img/og-image.png">
+<meta property="og:site_name" content="Pure Precious Jewellery">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="{SITE}{PATHS[page]}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/styles.css">
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"JewelryStore","name":"Pure Precious Jewellery L.L.C","description":"Specialist in all kinds of 18K diamond and platinum jewellery, with custom designs made in our own factory.","telephone":"{PHONE1_RAW}","email":"{EMAIL}","sameAs":["{IG}"],"address":{{"@type":"PostalAddress","streetAddress":"Office F09, Hana and Maryam Obaid, Al Helo, Gold Souq, Deira","addressLocality":"Dubai","addressCountry":"AE"}}}}
+{{"@context":"https://schema.org","@type":"JewelryStore","name":"Pure Precious Jewellery L.L.C","description":"Specialist in all kinds of 18K diamond and platinum jewellery, with custom designs made in our own factory.","url":"{SITE}/","logo":"{SITE}/assets/img/ppj-emblem-gold.svg","image":"{SITE}/assets/img/og-image.png","telephone":"{PHONE1_RAW}","email":"{EMAIL}","sameAs":["{IG}"],"address":{{"@type":"PostalAddress","streetAddress":"Office F09, Hana and Maryam Obaid, Al Helo, Gold Souq, Deira","addressLocality":"Dubai","addressCountry":"AE"}}}}
 </script>
 </head>
 <body>
@@ -525,4 +532,8 @@ contact += f'''
 </section>
 ''' + FOOT + tail()
 write("contact.html", contact)
+today = datetime.date.today().isoformat()
+urls = "".join(f"  <url><loc>{SITE}{path}</loc><lastmod>{today}</lastmod></url>\n" for path in PATHS.values())
+write("sitemap.xml", f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n')
+write("robots.txt", ("User-agent: *\nDisallow: /\n") if DEMO else f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
 print("ok")

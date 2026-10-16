@@ -2,7 +2,7 @@
 // product lightbox and the enquiry form (opens WhatsApp / email — no backend needed).
 
 const WHATSAPP = "971501348382";
-const EMAIL = "purepreciousjew@gmail.com";
+const EMAIL = "info@purepreciousjewellery.com";
 
 document.documentElement.classList.remove("no-js");
 
@@ -90,32 +90,53 @@ if (lightbox) {
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && lightbox.classList.contains("is-open")) close(); });
 }
 
-// Enquiry form -> WhatsApp or email
-const form = document.getElementById("enquiry-form");
-if (form) {
-  const build = () => {
-    const d = Object.fromEntries(new FormData(form));
-    return [
-      "Custom design enquiry — Pure Precious Jewellery",
-      `Name: ${d.name || "-"}`,
-      `Phone: ${d.phone || "-"}`,
-      `Piece type: ${d.type || "-"}`,
-      `Metal / stones: ${d.material || "-"}`,
-      `Details: ${d.message || "-"}`,
-    ].join("\n");
+// Enquiry forms: "Send enquiry" emails the client via Web3Forms (falls back to the visitor's
+// email app if no access key is set); "Send on WhatsApp" opens WhatsApp with the details.
+const LABELS = { name: "Name", phone: "Phone", email: "Email", interest: "Interested in", type: "Piece type", material: "Metal / stones", message: "Message" };
+document.querySelectorAll("form.js-enquiry").forEach((form) => {
+  const status = form.querySelector(".form-status");
+  const say = (msg, kind) => { status.textContent = msg; status.dataset.kind = kind || ""; };
+  const summary = () => {
+    const d = new FormData(form);
+    return [form.dataset.title + " - Pure Precious Jewellery",
+      ...Object.keys(LABELS).filter((k) => d.has(k)).map((k) => `${LABELS[k]}: ${d.get(k) || "-"}`)].join("\n");
   };
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    say("");
     if (!form.reportValidity()) return;
-    const via = e.submitter?.dataset.via || "whatsapp";
-    const text = build();
-    if (via === "email") {
-      location.href = `mailto:${EMAIL}?subject=${encodeURIComponent("Custom design enquiry")}&body=${encodeURIComponent(text)}`;
-    } else {
-      window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`, "_blank", "noopener");
+    const via = e.submitter?.dataset.via || "send";
+    if (via === "whatsapp") {
+      window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(summary())}`, "_blank", "noopener");
+      return;
+    }
+    const key = form.querySelector('[name="access_key"]').value;
+    if (!key) {
+      location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(form.dataset.title)}&body=${encodeURIComponent(summary())}`;
+      return;
+    }
+    const btn = e.submitter;
+    btn.disabled = true;
+    say("Sending…");
+    try {
+      const data = Object.fromEntries(new FormData(form));
+      if (data.email) data.replyto = data.email;
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(data),
+      });
+      const out = await res.json().catch(() => ({}));
+      if (!res.ok || !out.success) throw new Error(out.message || "failed");
+      form.reset();
+      say("Thank you — your message has been sent. We'll be in touch soon.", "ok");
+    } catch (err) {
+      say("Sorry, your message couldn't be sent. Please try again, or message us on WhatsApp.", "error");
+    } finally {
+      btn.disabled = false;
     }
   });
-}
+});
 
 document.querySelectorAll("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
 

@@ -14,6 +14,12 @@ The client has a **workshop / factory**, not a showroom — never call it a shop
 - When the user uploads raw photos (e.g. `WhatsApp Image ...jpeg`): check what each shows, move it to the right
   category with a descriptive dashed name, make jpg + webp, delete the original, add it to `products.json`, rebuild.
 
+## Contact details & forms
+- Email: info@purepreciousjewellery.com; phone/WhatsApp +971 50 134 8382; landline +971 4 285 9661.
+- Contact page and Custom Design page forms (`form.js-enquiry`, handler in `assets/js/main.js`) send email via
+  Web3Forms using `WEB3FORMS_KEY` in `tools/build_pages.py` (public key, safe in the repo). Empty key = falls
+  back to the visitor's email app. "Send on WhatsApp" always works.
+
 ## Deploying — work on `demo`, release to `main`
 - **All edits go to the `demo` branch.** GitHub Pages serves `demo` as the client preview link.
 - **`main` is the live site** (Cloudflare Pages). Only update it when the user says to release/deploy live:

@@ -466,3 +466,11 @@ ul { margin: 0; padding: 0; list-style: none; }
 .wa-start:hover { filter: brightness(0.95); }
 .wa-start svg { width: 20px; height: 20px; }
 .wa-status span { white-space: nowrap; }
+
+/* Form extras */
+.hp { position: absolute !important; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.field .opt { text-transform: none; letter-spacing: 0; font-weight: 400; color: var(--text-muted); }
+.form-status { min-height: 1.5em; font-size: 0.92rem; font-weight: 500; }
+.form-status[data-kind="ok"] { color: #1d6b4a; }
+.form-status[data-kind="error"] { color: #b42318; }
+.btn:disabled { opacity: 0.6; cursor: wait; transform: none; }

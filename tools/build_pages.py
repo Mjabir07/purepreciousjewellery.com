@@ -32,7 +32,24 @@ def tile_media(k, ic):
 
 PHONE1, PHONE1_RAW = "+971 50 134 8382", "+971501348382"
 PHONE2, PHONE2_RAW = "+971 4 285 9661", "+97142859661"
-EMAIL = "purepreciousjew@gmail.com"
+EMAIL = "info@purepreciousjewellery.com"
+# Web3Forms access key (public by design). Paste the key emailed by web3forms.com here, then rebuild.
+# While empty, forms fall back to opening the visitor's email app.
+WEB3FORMS_KEY = ""
+
+def form_hidden(subject):
+    return (f'<input type="hidden" name="access_key" value="{WEB3FORMS_KEY}">'
+            f'<input type="hidden" name="subject" value="{subject}">'
+            '<input type="hidden" name="from_name" value="Pure Precious Jewellery website">'
+            '<input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">')
+
+def form_actions():
+    return f'''      <div class="hero-actions" style="margin-top:6px">
+        <button class="btn btn--gold" type="submit" data-via="send">Send enquiry</button>
+        <button class="btn btn--ghost" type="submit" data-via="whatsapp">{SVG["wa"]} Send on WhatsApp</button>
+      </div>
+      <p class="form-status" role="status" aria-live="polite"></p>
+      <p class="form-note">We reply by phone, WhatsApp or email during working hours.</p>'''
 WA = "https://wa.me/971501348382"
 from urllib.parse import quote
 def wa(text):
@@ -409,18 +426,20 @@ custom += f'''
     <div class="reveal">
       <span class="eyebrow">Start your piece</span>
       <h2 class="section-title">Tell us <span class="gold-text">what you imagine</span></h2>
-      <p class="section-lead">Fill in a few details and send them straight to us on WhatsApp or email. Have a sketch or photo? Attach it in the chat.</p>
+      <p class="section-lead">Fill in a few details and send them to us &mdash; or send them on WhatsApp. Have a sketch or photo? Share it with us on WhatsApp.</p>
       <ul class="checklist">
         <li><span>Rings, necklaces &amp; pendants, bracelets and earrings</span></li>
         <li><span>18K gold, diamonds and platinum</span></li>
         <li><span>Matching sets and personalised engraving</span></li>
       </ul>
     </div>
-    <form class="form reveal" id="enquiry-form" style="--d:.12s" novalidate>
+    <form class="form reveal js-enquiry" id="enquiry-form" style="--d:.12s" data-title="Custom design enquiry" novalidate>
+      {form_hidden("Custom design enquiry - website")}
       <div class="form-row">
         <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" autocomplete="name" required></div>
         <div class="field"><label for="f-phone">Phone / WhatsApp</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" required></div>
       </div>
+      <div class="field"><label for="f-email">Email <span class="opt">(optional)</span></label><input id="f-email" name="email" type="email" autocomplete="email"></div>
       <div class="form-row">
         <div class="field"><label for="f-type">Type of piece</label>
           <select id="f-type" name="type" required><option value="">Select…</option><option>Ring</option><option>Necklace / Pendant</option><option>Bracelet</option><option>Earrings</option><option>Full set</option><option>Other</option></select></div>
@@ -428,11 +447,7 @@ custom += f'''
           <select id="f-mat" name="material"><option value="">Not sure yet</option><option>18K gold</option><option>Platinum</option><option>18K gold with diamonds</option><option>Platinum with diamonds</option></select></div>
       </div>
       <div class="field"><label for="f-msg">Your idea</label><textarea id="f-msg" name="message" placeholder="Describe the design, occasion, sizes, budget…" required></textarea></div>
-      <div class="hero-actions" style="margin-top:6px">
-        <button class="btn btn--gold" type="submit" data-via="whatsapp">{SVG["wa"]} Send on WhatsApp</button>
-        <button class="btn btn--ghost" type="submit" data-via="email">Send by email</button>
-      </div>
-      <p class="form-note">This opens WhatsApp or your email app with your details filled in.</p>
+{form_actions()}
     </form>
   </div>
 </section>
@@ -481,9 +496,33 @@ contact += f'''
   <div class="container">
     <span class="eyebrow">Contact</span>
     <h1>Visit <span class="gold-text">us</span></h1>
-    <p>Visit our workshop, call, or message us on WhatsApp.</p>
+    <p>Visit our workshop, call, message us on WhatsApp &mdash; or send us a message below.</p>
   </div>
 </section>
-''' + visit_block() + FOOT + tail()
+''' + visit_block() + f'''
+<section class="section" id="message">
+  <div class="container split" style="align-items:start">
+    <div class="reveal">
+      <span class="eyebrow">Send a message</span>
+      <h2 class="section-title">We&rsquo;d love to <span class="gold-text">hear from you</span></h2>
+      <p class="section-lead">Ask about a piece, prices, sizes or a custom design. We&rsquo;ll get back to you by phone, WhatsApp or email.</p>
+    </div>
+    <form class="form reveal js-enquiry" id="contact-form" style="--d:.12s" data-title="Website enquiry" novalidate>
+      {form_hidden("New enquiry - website")}
+      <div class="form-row">
+        <div class="field"><label for="c-name">Your name</label><input id="c-name" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="c-phone">Phone / WhatsApp</label><input id="c-phone" name="phone" type="tel" autocomplete="tel" required></div>
+      </div>
+      <div class="form-row">
+        <div class="field"><label for="c-email">Email <span class="opt">(optional)</span></label><input id="c-email" name="email" type="email" autocomplete="email"></div>
+        <div class="field"><label for="c-topic">Interested in</label>
+          <select id="c-topic" name="interest"><option value="">Select…</option><option>Rings</option><option>Necklaces &amp; Pendants</option><option>Bracelets</option><option>Earrings</option><option>Custom design</option><option>Visiting the workshop</option><option>Something else</option></select></div>
+      </div>
+      <div class="field"><label for="c-msg">Message</label><textarea id="c-msg" name="message" required></textarea></div>
+{form_actions()}
+    </form>
+  </div>
+</section>
+''' + FOOT + tail()
 write("contact.html", contact)
 print("ok")

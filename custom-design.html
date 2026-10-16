@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/styles.css">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"JewelryStore","name":"Pure Precious Jewellery L.L.C","description":"Specialist in all kinds of 18K diamond and platinum jewellery, with custom designs made in our own factory.","telephone":"+971501348382","email":"purepreciousjew@gmail.com","sameAs":["https://www.instagram.com/pure_precious_jewellery"],"address":{"@type":"PostalAddress","streetAddress":"Office F09, Hana and Maryam Obaid, Al Helo, Gold Souq, Deira","addressLocality":"Dubai","addressCountry":"AE"}}
+{"@context":"https://schema.org","@type":"JewelryStore","name":"Pure Precious Jewellery L.L.C","description":"Specialist in all kinds of 18K diamond and platinum jewellery, with custom designs made in our own factory.","telephone":"+971501348382","email":"info@purepreciousjewellery.com","sameAs":["https://www.instagram.com/pure_precious_jewellery"],"address":{"@type":"PostalAddress","streetAddress":"Office F09, Hana and Maryam Obaid, Al Helo, Gold Souq, Deira","addressLocality":"Dubai","addressCountry":"AE"}}
 </script>
 </head>
 <body>
@@ -66,18 +66,20 @@
     <div class="reveal">
       <span class="eyebrow">Start your piece</span>
       <h2 class="section-title">Tell us <span class="gold-text">what you imagine</span></h2>
-      <p class="section-lead">Fill in a few details and send them straight to us on WhatsApp or email. Have a sketch or photo? Attach it in the chat.</p>
+      <p class="section-lead">Fill in a few details and send them to us &mdash; or send them on WhatsApp. Have a sketch or photo? Share it with us on WhatsApp.</p>
       <ul class="checklist">
         <li><span>Rings, necklaces &amp; pendants, bracelets and earrings</span></li>
         <li><span>18K gold, diamonds and platinum</span></li>
         <li><span>Matching sets and personalised engraving</span></li>
       </ul>
     </div>
-    <form class="form reveal" id="enquiry-form" style="--d:.12s" novalidate>
+    <form class="form reveal js-enquiry" id="enquiry-form" style="--d:.12s" data-title="Custom design enquiry" novalidate>
+      <input type="hidden" name="access_key" value=""><input type="hidden" name="subject" value="Custom design enquiry - website"><input type="hidden" name="from_name" value="Pure Precious Jewellery website"><input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <div class="form-row">
         <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" autocomplete="name" required></div>
         <div class="field"><label for="f-phone">Phone / WhatsApp</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" required></div>
       </div>
+      <div class="field"><label for="f-email">Email <span class="opt">(optional)</span></label><input id="f-email" name="email" type="email" autocomplete="email"></div>
       <div class="form-row">
         <div class="field"><label for="f-type">Type of piece</label>
           <select id="f-type" name="type" required><option value="">Select…</option><option>Ring</option><option>Necklace / Pendant</option><option>Bracelet</option><option>Earrings</option><option>Full set</option><option>Other</option></select></div>
@@ -86,10 +88,11 @@
       </div>
       <div class="field"><label for="f-msg">Your idea</label><textarea id="f-msg" name="message" placeholder="Describe the design, occasion, sizes, budget…" required></textarea></div>
       <div class="hero-actions" style="margin-top:6px">
-        <button class="btn btn--gold" type="submit" data-via="whatsapp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11 11 0 0 0 3.2 17.3L2 22l4.8-1.2A11 11 0 1 0 20.5 3.5zM12 20a9 9 0 0 1-4.6-1.3l-.3-.2-2.8.7.8-2.7-.2-.3A9 9 0 1 1 12 20zm5-6.7c-.3-.1-1.6-.8-1.8-.9s-.4-.1-.6.1-.7.9-.8 1-.3.2-.6.1a7.3 7.3 0 0 1-3.6-3.1c-.3-.5.3-.5.8-1.5.1-.2 0-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.800 11.800 0 0 0 4.600 4.100c1.700.7 2.400.8 3.200.7a2.700 2.700 0 0 0 1.800-1.300 2.200 2.200 0 0 0 .2-1.300c-.1-.1-.3-.2-.6-.3z"/></svg> Send on WhatsApp</button>
-        <button class="btn btn--ghost" type="submit" data-via="email">Send by email</button>
+        <button class="btn btn--gold" type="submit" data-via="send">Send enquiry</button>
+        <button class="btn btn--ghost" type="submit" data-via="whatsapp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11 11 0 0 0 3.2 17.3L2 22l4.8-1.2A11 11 0 1 0 20.5 3.5zM12 20a9 9 0 0 1-4.6-1.3l-.3-.2-2.8.7.8-2.7-.2-.3A9 9 0 1 1 12 20zm5-6.7c-.3-.1-1.6-.8-1.8-.9s-.4-.1-.6.1-.7.9-.8 1-.3.2-.6.1a7.3 7.3 0 0 1-3.6-3.1c-.3-.5.3-.5.8-1.5.1-.2 0-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.800 11.800 0 0 0 4.600 4.100c1.700.7 2.400.8 3.200.7a2.700 2.700 0 0 0 1.800-1.300 2.200 2.200 0 0 0 .2-1.300c-.1-.1-.3-.2-.6-.3z"/></svg> Send on WhatsApp</button>
       </div>
-      <p class="form-note">This opens WhatsApp or your email app with your details filled in.</p>
+      <p class="form-status" role="status" aria-live="polite"></p>
+      <p class="form-note">We reply by phone, WhatsApp or email during working hours.</p>
     </form>
   </div>
 </section>
@@ -103,7 +106,7 @@
         <div class="socials">
           <a href="https://www.instagram.com/pure_precious_jewellery" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
           <a href="https://wa.me/971501348382?text=Hello%20Pure%20Precious%20Jewellery%2C%20I%20found%20you%20on%20your%20website%20and%20I%27m%20interested%20in%20your%20jewellery." target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11 11 0 0 0 3.2 17.3L2 22l4.8-1.2A11 11 0 1 0 20.5 3.5zM12 20a9 9 0 0 1-4.6-1.3l-.3-.2-2.8.7.8-2.7-.2-.3A9 9 0 1 1 12 20zm5-6.7c-.3-.1-1.6-.8-1.8-.9s-.4-.1-.6.1-.7.9-.8 1-.3.2-.6.1a7.3 7.3 0 0 1-3.6-3.1c-.3-.5.3-.5.8-1.5.1-.2 0-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.800 11.800 0 0 0 4.600 4.100c1.700.7 2.400.8 3.200.7a2.700 2.700 0 0 0 1.800-1.300 2.200 2.200 0 0 0 .2-1.300c-.1-.1-.3-.2-.6-.3z"/></svg></a>
-          <a href="mailto:purepreciousjew@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+          <a href="mailto:info@purepreciousjewellery.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
         </div>
       </div>
       <div>
@@ -131,7 +134,7 @@
           <span>Office F09, Hana &amp; Maryam Obaid<br>Al Helo, Gold Souq, Deira<br>Dubai, UAE</span>
           <a href="tel:+971501348382">+971 50 134 8382</a>
           <a href="tel:+97142859661">+971 4 285 9661</a>
-          <a href="mailto:purepreciousjew@gmail.com">purepreciousjew@gmail.com</a>
+          <a href="mailto:info@purepreciousjewellery.com">info@purepreciousjewellery.com</a>
         </address>
       </div>
     </div>

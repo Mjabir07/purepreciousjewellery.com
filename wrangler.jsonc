@@ -1,0 +1,9 @@
+// Cloudflare deploy config: serve the static site from the repo root.
+// Files that are not part of the website are excluded in .assetsignore.
+{
+  "name": "purepreciousjewellery-com",
+  "compatibility_date": "2025-09-01",
+  "assets": {
+    "directory": "./"
+  }
+}

@@ -19,6 +19,8 @@ The client has a **workshop / factory**, not a showroom — never call it a shop
 - **`main` is the live site** (Cloudflare Pages). Only update it when the user says to release/deploy live:
   `git checkout main && git merge --ff-only demo && git push origin main`, then return to `demo`.
   Batching edits this way keeps Cloudflare deploys (500/month free) low.
+- Cloudflare runs `npx wrangler deploy` with `wrangler.jsonc` (assets = repo root). Anything that is not part of
+  the public site must be listed in `.assetsignore`.
 - `DEMO = True` in `tools/build_pages.py` plus `robots.txt` keep search engines out. At launch: set
   `DEMO = False`, rebuild, delete `robots.txt`, add a sitemap.
 - Before pushing, check pages in Playwright at desktop and ~390px width (no horizontal overflow, no console errors).
